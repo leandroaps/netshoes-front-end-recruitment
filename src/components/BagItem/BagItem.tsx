@@ -45,20 +45,19 @@ const BagItem = ({ item, removeFromBag, decreaseItem, increaseItem }) => {
                 </BagItemDetails>
                 <BagItemDetails>
                     <span>Quantidade: </span>
-                    <div fontSize="16px" color="#dfbd00" onClick={() => decreaseItem(item.id)}>
+                    <button color="#dfbd00" onClick={() => decreaseItem(item.id)}>
                         -
-                    </div>
+                    </button>
                     <span className="mx-1 text-white"> {item.quantity} </span>
-                    <div fontSize="16px" color="#dfbd00" onClick={() => increaseItem(item.id)}>
+                    <button color="#dfbd00" onClick={() => increaseItem(item.id)}>
                         +
-                    </div>
+                    </button>
                 </BagItemDetails>
             </div>
 
             <div className="col-3 col-md-3 p-0 d-flex flex-column align-items-end">
                 <button onClick={handleRemoveItem} onMouseOver={mouseOver} onMouseLeave={mouseLeave}>
-                    {/* MdClose */}
-                    <div fontSize="24px" color={fillColor} />
+                    <p color={fillColor}>X</p>
                 </button>
 
                 <BagItemPrice>

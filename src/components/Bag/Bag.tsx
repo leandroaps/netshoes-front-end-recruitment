@@ -6,7 +6,7 @@ import Subtotal from '../SubTotal/Subtotal';
 
 interface Props {
     bagList: Object;
-    hideBag: Boolean;
+    hideBag: () => void;
     removeFromBag: () => void;
     increaseItem: () => void;
     decreaseItem: () => void;
