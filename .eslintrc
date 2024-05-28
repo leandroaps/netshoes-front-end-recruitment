@@ -8,8 +8,10 @@
         "plugin:react-hooks/recommended"
     ],
     "plugins": ["react-refresh"],
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "sourceType": "module"
+        "sourceType": "module",
+        "parser": "@typescript-eslint/"
     },
     "settings": {
         "react": {

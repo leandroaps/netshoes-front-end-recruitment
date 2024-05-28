@@ -13,7 +13,7 @@ const Subtotal = ({ bagTotalPrice, installmentsVal }) => {
                 <TotalPrice>R$ {bagTotalPrice}</TotalPrice>
                 <InstallmentsPrice>ou em até 10x de R$ {installmentsVal}</InstallmentsPrice>
             </div>
-            <BuyButton secondary>comprar</BuyButton>
+            <BuyButton $secondary>comprar</BuyButton>
         </SubtotalWrapper>
     );
 };

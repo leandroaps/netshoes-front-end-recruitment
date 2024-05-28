@@ -3,8 +3,12 @@ import { MainHeader } from '../../theme/HeaderStyles';
 import { OpenBagButton } from '../../theme/OpenBagButtonStyles';
 import BagIcon from '../BagIcon/BagIcon';
 
-// eslint-disable-next-line react/prop-types
-const Header = ({ showBag, bagList }) => {
+interface Props {
+    showBag: boolean;
+    bagList: Object;
+}
+
+const Header = ({ showBag, bagList }: Props) => {
     return (
         <MainHeader>
             <div className="row">

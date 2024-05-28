@@ -9,7 +9,6 @@ const Shop = () => {
     const [bagList, setBagList] = useState({});
 
     useEffect(() => {
-        // Atualizando o array de produtos com dados do localStorage
         const products = JSON.parse(localStorage.getItem('productsOnBag'));
         if (products) {
             setBagList(products);
@@ -79,7 +78,7 @@ const Shop = () => {
     const bagVis = isBagOpen ? { right: '0', opacity: '1' } : { right: '-100%', opacity: '1' };
 
     return (
-        <div className="Shop">
+        <>
             <Header showBag={showBag} bagList={bagList} />
             <ProductsList showBag={showBag} addToBag={addToBag} />
             <BagReveal style={bagVis}>
@@ -91,7 +90,7 @@ const Shop = () => {
                     decreaseItem={decreaseItem}
                 />
             </BagReveal>
-        </div>
+        </>
     );
 };
 

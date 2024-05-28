@@ -31,7 +31,7 @@ const BagItem = ({ item, removeFromBag, decreaseItem, increaseItem }) => {
     });
 
     return (
-        <BagItemWrapper className="row" deleted={deletedLine} opacity={itemOpacity}>
+        <BagItemWrapper className="row" $deleted={deletedLine} opacity={itemOpacity}>
             <div className="col-2 col-md-1 p-0">
                 <img src={item.thumbUrl} alt="" />
             </div>
@@ -45,11 +45,13 @@ const BagItem = ({ item, removeFromBag, decreaseItem, increaseItem }) => {
                 </BagItemDetails>
                 <BagItemDetails>
                     <span>Quantidade: </span>
-                    {/* MdRemoveCircle */}
-                    <div fontSize="16px" color="#dfbd00" onClick={() => decreaseItem(item.id)} />
+                    <div fontSize="16px" color="#dfbd00" onClick={() => decreaseItem(item.id)}>
+                        -
+                    </div>
                     <span className="mx-1 text-white"> {item.quantity} </span>
-                    {/* MdAddCircle */}
-                    <div fontSize="16px" color="#dfbd00" onClick={() => increaseItem(item.id)} />
+                    <div fontSize="16px" color="#dfbd00" onClick={() => increaseItem(item.id)}>
+                        +
+                    </div>
                 </BagItemDetails>
             </div>
 

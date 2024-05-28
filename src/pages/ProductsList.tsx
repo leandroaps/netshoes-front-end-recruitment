@@ -25,7 +25,7 @@ function ProductsList(props) {
     };
 
     return (
-        <div className="container list-wrapper">
+        <div className="container-fluid list-wrapper">
             <div className="row">
                 {products.map((product, index) => (
                     <Product key={index} product={product} index={index} addToBag={() => addToBag(index)} />

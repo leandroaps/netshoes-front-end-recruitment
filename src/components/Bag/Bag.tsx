@@ -1,11 +1,17 @@
-/* eslint-disable react/prop-types */
 import React, { useEffect, useMemo, useState } from 'react';
 import { BagContainer, BagHeader } from '../../theme/BagStyles';
 import BagIcon from '../BagIcon/BagIcon';
 import BagItem from '../BagItem/BagItem';
 import Subtotal from '../SubTotal/Subtotal';
 
-const Bag = ({ bagList, hideBag, removeFromBag, increaseItem, decreaseItem }) => {
+interface Props {
+    bagList: Object;
+    hideBag: Boolean;
+    removeFromBag: () => void;
+    increaseItem: () => void;
+    decreaseItem: () => void;
+}
+const Bag = ({ bagList, hideBag, removeFromBag, increaseItem, decreaseItem }: Props) => {
     const [fillColor, setFillColor] = useState('#999999');
     const [bagTotalPrice, setBagTotalPrice] = useState('');
     const [installmentsVal, setInstallmentsVal] = useState('');

@@ -3,6 +3,7 @@
     "version": "2.0.0",
     "private": true,
     "dependencies": {
+        "@popperjs/core": "^2.11.8",
         "axios": "^1.7.2",
         "bootstrap": "^5.3.3",
         "react": "^18.3.1",
@@ -40,6 +41,7 @@
         "globals": "^15.3.0",
         "prettier": "^3.2.5",
         "react-test-renderer": "^18.3.1",
+        "sass": "^1.77.2",
         "vite": "^5.2.12",
         "vitest": "^1.6.0"
     }
