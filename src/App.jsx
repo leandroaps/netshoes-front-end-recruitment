@@ -1,6 +1,5 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
-
 import Shop from './components/Shop/Shop';
 
 const GlobalStyle = createGlobalStyle`
@@ -15,12 +14,12 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
-  return (
-    <>
-      <GlobalStyle />
-      <Shop />
-    </>
-  );
+    return (
+        <>
+            <GlobalStyle />
+            <Shop />
+        </>
+    );
 }
 
 export default App;

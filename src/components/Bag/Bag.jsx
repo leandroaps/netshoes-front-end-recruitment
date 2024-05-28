@@ -1,98 +1,87 @@
-import React, { Component } from 'react';
+/* eslint-disable react/prop-types */
+import React, { useEffect, useMemo, useState } from 'react';
 import { BagContainer, BagHeader } from '../../theme/BagStyles';
-import BagIcon from './BagIcon';
-import BagItem from './BagItem';
-import Subtotal from './Subtotal';
+import BagIcon from '../BagIcon/BagIcon';
+import BagItem from '../BagItem/BagItem';
+import Subtotal from '../SubTotal/Subtotal';
 
-export default class Bag extends Component {
-  state = {
-    bagTotalPrice: '',
-    installmentsVal: '',
-    fillColor: '#999999',
-  };
+const Bag = ({ bagList, hideBag, removeFromBag, increaseItem, decreaseItem }) => {
+    const [fillColor, setFillColor] = useState('#999999');
+    const [bagTotalPrice, setBagTotalPrice] = useState('');
+    const [installmentsVal, setInstallmentsVal] = useState('');
 
-  // Usando novo componente lifecicle pra trazer o valor total para a sacola
-  static getDerivedStateFromProps(props) {
-    const unitPrice = props.bagList;
-    const totalPrice = Object.keys(unitPrice).reduce((total, key) => {
-      const item = unitPrice[key];
-      if (item) return total + item.price * item.quantity;
-      return total;
-    }, 0);
+    useEffect(() => {
+        const unitPrice = bagList;
+        const totalPrice = Object.keys(unitPrice).reduce((total, key) => {
+            const item = unitPrice[key];
+            if (item) return total + item.price * item.quantity;
+            return total;
+        }, 0);
 
-    const installments = (totalPrice / 10).toLocaleString('pt-BR', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
+        const installments = (totalPrice / 10).toLocaleString('pt-BR', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
 
-    const toCurrency = totalPrice.toLocaleString('pt-BR', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
+        const toCurrency = totalPrice.toLocaleString('pt-BR', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
 
-    return {
-      bagTotalPrice: toCurrency,
-      installmentsVal: installments,
+        setBagTotalPrice(toCurrency);
+        setInstallmentsVal(installments);
+    }, [bagList]);
+
+    const mouseOver = () => {
+        setFillColor('#ffffff');
     };
-  }
 
-  mouseOver = () => {
-    this.setState({ fillColor: '#ffffff' });
-  };
+    const mouseLeave = () => {
+        setFillColor('#999999');
+    };
 
-  mouseLeave = () => {
-    this.setState({ fillColor: '#999999' });
-  };
-
-  render() {
-    // Verifica se o carrinho está vazio, se estiver, retorna uma mensagem
-    let bagIsEmpty;
-    if (this.state.bagTotalPrice === '0,00') {
-      bagIsEmpty = (
-        <div className="d-flex justify-content-center">
-          <h4 className="py-5 d-block">Sua sacola está vazia!</h4>
-        </div>
-      );
-    } else {
-      bagIsEmpty = <Subtotal bagTotalPrice={this.state.bagTotalPrice} installmentsVal={this.state.installmentsVal} />;
-    }
+    const bagIsEmpty = useMemo(() => {
+        if (bagTotalPrice === '0,00') {
+            return (
+                <div className="d-flex justify-content-center">
+                    <h4 className="py-5 d-block">Sua sacola está vazia!</h4>
+                </div>
+            );
+        } else {
+            return <Subtotal bagTotalPrice={bagTotalPrice} installmentsVal={installmentsVal} />;
+        }
+    }, [bagTotalPrice, installmentsVal]);
 
     return (
-      <BagContainer className="container">
-        <BagHeader className="row m-0">
-          <div className="col-2 col-md-2 p-0 d-flex justify-content-center align-items-center">
-            <button
-              onClick={() => {
-                this.props.hideBag();
-              }}
-              onMouseOver={this.mouseOver}
-              onMouseLeave={this.mouseLeave}
-            >
-              {/* // MdClose */}
-              <div fontSize="32px" color={this.state.fillColor} />
-            </button>
-          </div>
-          <div className="col-6 offset-1 col-md-6 offset-md-1 d-flex justify-content-around align-items-center">
-            <BagIcon width={48} bagList={this.props.bagList} />
-            <h1 className="mb-0 text-white">Sacola</h1>
-          </div>
-        </BagHeader>
+        <BagContainer className="container">
+            <BagHeader className="row m-0">
+                <div className="col-2 col-md-2 p-0 d-flex justify-content-center align-items-center">
+                    <button onClick={hideBag} onMouseOver={mouseOver} onMouseLeave={mouseLeave}>
+                        X
+                    </button>
+                </div>
+                <div className="col-6 offset-1 col-md-6 offset-md-1 d-flex justify-content-around align-items-center">
+                    <BagIcon width={48} bagList={bagList} />
+                    <h1 className="mb-0 text-white">Sacola</h1>
+                </div>
+            </BagHeader>
 
-        {Object.keys(this.props.bagList).map((key, index) => {
-          const item = this.props.bagList[key];
-          return (
-            <BagItem
-              key={index}
-              item={item}
-              index={index}
-              removeFromBag={this.props.removeFromBag}
-              increaseItem={this.props.increaseItem}
-              decreaseItem={this.props.decreaseItem}
-            />
-          );
-        })}
-        {bagIsEmpty}
-      </BagContainer>
+            {Object.keys(bagList).map((key, index) => {
+                const item = bagList[key];
+                return (
+                    <BagItem
+                        key={index}
+                        item={item}
+                        index={index}
+                        removeFromBag={removeFromBag}
+                        increaseItem={increaseItem}
+                        decreaseItem={decreaseItem}
+                    />
+                );
+            })}
+            {bagIsEmpty}
+        </BagContainer>
     );
-  }
-}
+};
+
+export default Bag;
